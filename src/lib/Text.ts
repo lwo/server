@@ -30,7 +30,7 @@ export interface OcrWord {
 const readFileAsync = promisify(fs.readFile);
 
 const ns = {
-    'alto': 'http://www.loc.gov/standards/alto/ns-v2#'
+    'alto': 'http://schema.ccs-gmbh.com/ALTO',
 };
 
 export async function indexTexts(textItems: Text[]): Promise<void> {
