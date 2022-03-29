@@ -32,7 +32,9 @@ export function setElasticSearchClient(client: Client): void {
         await client.ping();
 
         const itemsExists = await client.indices.exists({index: config.elasticSearchIndexItems});
-        if (!itemsExists.body) {
+        if (itemsExists.body) {
+            logger.info('Index exists '.concat(config.elasticSearchIndexItems));
+        } else {
             await client.indices.create({
                 index: config.elasticSearchIndexItems,
                 body: {
@@ -144,7 +146,9 @@ export function setElasticSearchClient(client: Client): void {
         }
 
         const textsExists = await client.indices.exists({index: config.elasticSearchIndexTexts});
-        if (!textsExists.body) {
+        if (textsExists.body) {
+            logger.info('Index exists '.concat(config.elasticSearchIndexTexts));
+        } else {
             await client.indices.create({
                 index: config.elasticSearchIndexTexts,
                 body: {
