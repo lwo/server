@@ -25,8 +25,13 @@ export function setElasticSearchClient(client: Client): void {
 }
 
 (async function setMapping() {
-    if (config.env === 'test')
+
+    logger.debug('Run setMapping');
+
+    if (config.env === 'test') {
+        logger.debug('config.env is test, so skipping index check and creation.');
         return;
+    }
 
     try {
         await client.ping();
@@ -35,6 +40,7 @@ export function setElasticSearchClient(client: Client): void {
         if (itemsExists.body) {
             logger.info('Index exists '.concat(config.elasticSearchIndexItems));
         } else {
+            logger.debug('No items index, create '.concat(config.elasticSearchIndexItems));
             await client.indices.create({
                 index: config.elasticSearchIndexItems,
                 body: {
@@ -220,7 +226,8 @@ export function setElasticSearchClient(client: Client): void {
             logger.info('Created the index '.concat(config.elasticSearchIndexTexts, ' with a mapping'));
         }
     }
-    catch (e) {
+    catch (err) {
+        logger.error(`Failure determining indices. Cause: ${err}`);
         setMapping();
     }
 })();

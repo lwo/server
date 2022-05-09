@@ -237,13 +237,13 @@ const config: Config = {
     elasticSearchIndexItems: (_ => {
         return (!process.env.IIIF_SERVER_ELASTICSEARCH_INDEX_PREFIX || (process.env.IIIF_SERVER_ELASTICSEARCH_INDEX_PREFIX === 'null'))
             ? 'Items'
-            : process.env.IIIF_SERVER_ELASTICSEARCH_INDEX_PREFIX.concat('_', 'Items');
+            : process.env.IIIF_SERVER_ELASTICSEARCH_INDEX_PREFIX.concat('_', 'items');
     })(),
 
     elasticSearchIndexTexts: (_ => {
         return (!process.env.IIIF_SERVER_ELASTICSEARCH_INDEX_PREFIX || (process.env.IIIF_SERVER_ELASTICSEARCH_INDEX_PREFIX === 'null'))
             ? 'Texts'
-            : process.env.IIIF_SERVER_ELASTICSEARCH_INDEX_PREFIX.concat('_', 'Texts');
+            : process.env.IIIF_SERVER_ELASTICSEARCH_INDEX_PREFIX.concat('_', 'texts');
     })(),
 
     redisVolatile: (_ => {
